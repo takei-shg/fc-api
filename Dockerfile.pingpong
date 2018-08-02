@@ -1,0 +1,13 @@
+FROM golang:1.10.3
+
+COPY src/pingpong /go/src/github.com/factchain/fc-api/pingpong/
+
+WORKDIR /go/src/github.com/factchain/fc-api/pingpong/
+
+RUN go get -u github.com/golang/dep/...
+RUN dep ensure
+
+RUN go build -o /go/bin/main .
+CMD [ "/go/bin/main" ]
+
+EXPOSE 8080
